@@ -18,4 +18,29 @@ class User {
             return false;
         }
     }
+
+    // Método para conseguir los usuarios de la base de datos
+    public static function getUsersQuery($connection) {
+        try {
+            $sql = "SELECT * FROM Usuario";
+            $result = $connection->query($sql);
+            if ($result->num_rows > 0) {
+                return $result;
+            } else {
+                return null;
+            }
+        } catch (Exception $e) {
+            die('Error: ' . $e->getMessage());
+        }   
+    }
+
+    // Método para borrar un usuario de la base de datos mediante un id
+    public static function deleteUserQuery($connection, $id) {
+        try {
+            $sql = "DELETE FROM Usuario WHERE id = '$id'";
+            return $connection->query($sql);
+        } catch (Exception $e) {
+            die('Error: ' . $e->getMessage());
+        }
+    }
 }
